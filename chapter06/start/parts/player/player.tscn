@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnbp4126ry15h"]
+
+[ext_resource type="Script" uid="uid://br4eguyhfmrua" path="res://parts/player/player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://bm4n58n6gea06" path="res://assets/sprites/character/character09.png" id="2_i3pqv"]
+[ext_resource type="Script" uid="uid://bvddbqf1wxy43" path="res://parts/player/camera_position.gd" id="3_l4n0l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l4n0l"]
+radius = 26.0
+height = 52.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 3
+floor_constant_speed = true
+script = ExtResource("1_onrkg")
+number_of_coins = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_i3pqv")
+
+[node name="HealthLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -21.0
+offset_top = -42.0
+offset_right = 22.0
+offset_bottom = -19.0
+text = "10/10"
+
+[node name="CoinsLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -17.0
+offset_top = -60.0
+offset_right = 23.0
+offset_bottom = -37.0
+text = "🪙 0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_l4n0l")
+
+[node name="CameraPosition" type="Node2D" parent="."]
+script = ExtResource("3_l4n0l")
+
+[node name="Camera2D" type="Camera2D" parent="CameraPosition"]
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_drag_margin = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

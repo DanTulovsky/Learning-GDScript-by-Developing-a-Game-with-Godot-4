@@ -1,0 +1,139 @@
+[gd_scene load_steps=11 format=3 uid="uid://ck2g1dbq0ftuw"]
+
+[ext_resource type="Script" uid="uid://cj78pjyai6yov" path="res://screens/game/main.gd" id="1_b52nu"]
+[ext_resource type="PackedScene" uid="uid://dwd1pkseku31j" path="res://parts/enemy/enemy.tscn" id="1_enhf2"]
+[ext_resource type="PackedScene" uid="uid://b313ybaxphwk0" path="res://parts/arena/wall.tscn" id="1_teanv"]
+[ext_resource type="PackedScene" uid="uid://bftnofiyineoc" path="res://parts/collectibles/health_potion.tscn" id="2_6xclv"]
+[ext_resource type="PackedScene" uid="uid://dvrqoa6s1tl6t" path="res://parts/collectibles/coin.tscn" id="2_enhf2"]
+[ext_resource type="PackedScene" uid="uid://pxjosy63kygt" path="res://parts/arena/boulder.tscn" id="2_ldyrl"]
+[ext_resource type="PackedScene" uid="uid://cnbp4126ry15h" path="res://parts/player/player.tscn" id="3_6xclv"]
+[ext_resource type="PackedScene" uid="uid://bqgqag0qlgktk" path="res://parts/entity_spawner/entity_spawner.tscn" id="7_n7l27"]
+[ext_resource type="PackedScene" uid="uid://b7344rmdcryux" path="res://parts/game_over_scene/game_over_menu.tscn" id="8_igrc2"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6xclv"]
+vertices = PackedVector2Array(531.8125, 530, 528.46875, 802.60156, 522, 562.7578, 522, 461.60156, 906, 342.21875, 947.28125, 308.78125, 900.85156, 377.46875, 1696, 895, 1325.7891, 895, 1390.9297, 857.39844, 906, 229, 1189.7266, 803.53125, 1242.5078, 895, 1081, 895, 642, 802.60156, 642, 530, 964.8203, 474.82813, 389.53906, 422, 291, 339.5, 475.79688, 422, 405.6875, 569.46875, 1298.8125, 101, 1295.4688, 373.60156, 1063.6172, 364.45313, 1020.4922, 289.7422, 1732.8594, 965.8906, 1696, 966.75, 1777.3516, 367.20313, 1409, 373.60156, 1409, 101, 1796.1016, 104.171875, 1373.6719, 779.2969, 1297.5938, 733.8125, 65.34375, 70.796875, 1081, 981.09375, 942.40625, 984.3281, 95.64844, 1003.1094, 369.42188, 494.92188, 1052.4219, 424.25, 291, 229)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6), PackedInt32Array(7, 8, 9), PackedInt32Array(5, 4, 10), PackedInt32Array(11, 12, 13, 14, 15, 16), PackedInt32Array(17, 18, 4, 6, 19), PackedInt32Array(20, 2, 1), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(25, 26, 7, 27), PackedInt32Array(27, 7, 28, 29, 30), PackedInt32Array(28, 7, 9, 31), PackedInt32Array(28, 31, 32, 22), PackedInt32Array(33, 30, 29), PackedInt32Array(33, 29, 21), PackedInt32Array(14, 13, 34, 35, 36, 1), PackedInt32Array(1, 36, 33, 20), PackedInt32Array(37, 20, 33, 18), PackedInt32Array(38, 23, 22, 32, 11), PackedInt32Array(16, 38, 11), PackedInt32Array(3, 6, 16, 15, 0), PackedInt32Array(24, 5, 10, 21), PackedInt32Array(33, 21, 10, 39), PackedInt32Array(33, 39, 18), PackedInt32Array(17, 37, 18), PackedInt32Array(19, 6, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(24, 30, 1839, 65, 1772, 1005, 57, 1045)])
+parsed_geometry_type = 1
+source_geometry_mode = 1
+source_geometry_group_name = &"nav_obstacle"
+agent_radius = 40.0
+
+[node name="Main" type="Node"]
+script = ExtResource("1_b52nu")
+
+[node name="Arena" type="Node2D" parent="." groups=["nav_obstacle"]]
+
+[node name="Walls" type="Node" parent="Arena"]
+
+[node name="OuterWall" type="Polygon2D" parent="Arena/Walls" groups=["nav_obstacle"]]
+position = Vector2(-15.01273, -18.326195)
+scale = Vector2(1.6527272, 1.6787479)
+color = Color(0.12408299, 0.12408296, 0.12408296, 1)
+invert_enabled = true
+invert_border = 94.0
+polygon = PackedVector2Array(23, 27, 1123, 49, 1082, 610, 43, 634)
+uv = PackedVector2Array(23, 27, 1123, 49, 1082, 610, 43, 634)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/OuterWall"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/Walls/OuterWall/StaticBody2D"]
+polygon = PackedVector2Array(-68.9692, -65.33072, 1214.9694, -65.33072, 1217.3896, 726.33075, -69.574265, 726.92645, 42.967003, 632.80865, 1080.0409, 610.1727, 1122.3951, 49.040237, 22.394943, 26.40432, 42.361942, 632.80865, -70.784386, 728.1178)
+
+[node name="Wall" parent="Arena/Walls" instance=ExtResource("1_teanv")]
+position = Vector2(331, 269)
+scale = Vector2(5, 2.3600001)
+
+[node name="Wall4" parent="Arena/Walls" instance=ExtResource("1_teanv")]
+position = Vector2(1121, 935)
+scale = Vector2(5, 2.3600001)
+
+[node name="Wall2" parent="Arena/Walls" instance=ExtResource("1_teanv")]
+position = Vector2(1369, 141.00003)
+rotation = 1.5707964
+scale = Vector2(1.8, 2.3600001)
+
+[node name="Wall3" parent="Arena/Walls" instance=ExtResource("1_teanv")]
+position = Vector2(602, 570)
+rotation = 1.5707964
+scale = Vector2(1.8, 2.3600001)
+
+[node name="Coin" parent="Arena/Walls" instance=ExtResource("2_enhf2")]
+position = Vector2(887, 742)
+
+[node name="Boulders" type="Node2D" parent="Arena"]
+
+[node name="Boulder3" parent="Arena/Boulders" instance=ExtResource("2_ldyrl")]
+position = Vector2(1298, 823)
+rotation = 2.6179938
+scale = Vector2(1.2585645, 1.0985645)
+
+[node name="Boulder2" parent="Arena/Boulders" instance=ExtResource("2_ldyrl")]
+position = Vector2(986, 376)
+rotation = 1.0471976
+
+[node name="Boulder" parent="Arena/Boulders" instance=ExtResource("2_ldyrl")]
+position = Vector2(447, 495)
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="HealthPotion" parent="Collectibles" instance=ExtResource("2_6xclv")]
+position = Vector2(1182, 600)
+
+[node name="Player" parent="." instance=ExtResource("3_6xclv")]
+position = Vector2(860, 546)
+health = 1
+number_of_coins = 0
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_6xclv")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("7_n7l27")]
+position = Vector2(279, 676)
+entity_scene = ExtResource("1_enhf2")
+
+[node name="Marker2D" type="Marker2D" parent="EnemySpawner/Positions" index="0"]
+position = Vector2(210, 236)
+
+[node name="Marker2D2" type="Marker2D" parent="EnemySpawner/Positions" index="1"]
+position = Vector2(338, -534)
+
+[node name="Marker2D3" type="Marker2D" parent="EnemySpawner/Positions" index="2"]
+position = Vector2(1318, -447)
+
+[node name="Marker2D4" type="Marker2D" parent="EnemySpawner/Positions" index="3"]
+position = Vector2(1212, 91)
+
+[node name="HealthPotionSpawner" parent="." instance=ExtResource("7_n7l27")]
+position = Vector2(286, 940)
+entity_scene = ExtResource("2_6xclv")
+spawn_interval = 20.0
+
+[node name="Marker2D" type="Marker2D" parent="HealthPotionSpawner/Positions" index="0"]
+position = Vector2(1282, -573)
+
+[node name="Marker2D2" type="Marker2D" parent="HealthPotionSpawner/Positions" index="1"]
+position = Vector2(45, -173)
+
+[node name="Marker2D3" type="Marker2D" parent="HealthPotionSpawner/Positions" index="2"]
+position = Vector2(126, -786)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverMenu" parent="CanvasLayer" instance=ExtResource("8_igrc2")]
+visible = false
+
+[node name="TimerUI" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/TimerUI"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "123"
+
+[connection signal="died" from="Player" to="." method="_on_player_died"]
+
+[editable path="EnemySpawner"]
+[editable path="HealthPotionSpawner"]

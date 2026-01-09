@@ -12,14 +12,22 @@ config_version=5
 
 config/name="Chapter 06 Start"
 config/description="Enter an interesting project description here!"
-run/main_scene="uid://ck2g1dbq0ftuw"
+run/main_scene="uid://dbp3inp27pa88"
 config/features=PackedStringArray("4.5")
+boot_splash/bg_color=Color(0.7399571, 0.6498816, 0.97635, 1)
 config/icon="res://icon.png"
+
+[autoload]
+
+HighscoreManager="*res://autoloads/highscore_manager.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
 
 [input]
 
@@ -60,6 +68,7 @@ move_down={
 
 2d_physics/layer_1="Collision"
 2d_physics/layer_2="Colectible"
+2d_physics/layer_3="Projectile"
 
 [rendering]
 

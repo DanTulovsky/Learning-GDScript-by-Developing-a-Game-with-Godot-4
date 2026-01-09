@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbp3inp27pa88"]
+
+[ext_resource type="Script" uid="uid://c3rseli7o8kcs" path="res://screens/ui/menu.gd" id="1_l4wkl"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l4wkl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8346767, 0.89327204, 0.7817707, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.0
+offset_top = -67.0
+offset_right = 97.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainUIContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 200
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainUIContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Sheep!"
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/MainUIContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MainUIContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton" type="Button" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HighscoreLabelText" type="Label" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Highscore: "
+
+[node name="HighscoreLabel" type="Label" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "123"
+
+[node name="CreditLabel" type="Label" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Made by me in the place"
+
+[connection signal="pressed" from="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

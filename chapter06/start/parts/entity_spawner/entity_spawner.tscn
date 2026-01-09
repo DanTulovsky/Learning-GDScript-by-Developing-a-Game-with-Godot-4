@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqgqag0qlgktk"]
+
+[ext_resource type="Script" uid="uid://dewf2438j7fhk" path="res://parts/entity_spawner/entity_spawner.gd" id="1_42115"]
+
+[node name="EntitySpawner" type="Node2D"]
+script = ExtResource("1_42115")
+
+[node name="Positions" type="Node2D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="SpawnIntervalIncreaseTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="SpawnIntervalIncreaseTimer" to="." method="_on_spawn_increase_timer_timeout"]

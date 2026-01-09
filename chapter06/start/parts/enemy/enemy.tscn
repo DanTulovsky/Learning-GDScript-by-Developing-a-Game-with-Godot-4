@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwd1pkseku31j"]
+
+[ext_resource type="Texture2D" uid="uid://blhshi548mko6" path="res://assets/sprites/enemies/enemy01.png" id="1_jh6j7"]
+[ext_resource type="Script" uid="uid://btkdxvayftpuj" path="res://parts/enemy/enemy.gd" id="1_klfcx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jh6j7"]
+radius = 22.0
+height = 44.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_klfcx"]
+radius = 31.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 5
+script = ExtResource("1_klfcx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_jh6j7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_jh6j7")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+position = Vector2(1, 4)
+shape = SubResource("CircleShape2D_klfcx")
+
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_entered"]

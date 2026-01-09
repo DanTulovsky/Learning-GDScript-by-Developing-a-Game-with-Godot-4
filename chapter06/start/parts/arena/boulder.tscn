@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://pxjosy63kygt"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0xm2m"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h2yge"]
+noise = SubResource("FastNoiseLite_0xm2m")
+
+[node name="Boulder" type="Polygon2D"]
+color = Color(0.60324824, 0.6032482, 0.6032482, 1)
+offset = Vector2(-453, -307)
+texture = SubResource("NoiseTexture2D_h2yge")
+polygon = PackedVector2Array(418, 303, 426, 274, 467, 274, 488, 292, 488, 337, 436, 340)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-27, -33, 14, -33, 35, -15, 35, 30, -17, 33, -35, -4)
