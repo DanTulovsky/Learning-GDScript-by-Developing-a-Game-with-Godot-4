@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://btvpoxqjxr162"]
+[gd_scene load_steps=5 format=3 uid="uid://btvpoxqjxr162"]
 
 [ext_resource type="Texture2D" uid="uid://b53enicokee3b" path="res://assets/sprites/projectiles/arrow01.png" id="1_lga2o"]
 [ext_resource type="Script" uid="uid://cy4dbimn4wfe5" path="res://parts/projectile/projectile.gd" id="1_y3sk7"]
@@ -6,20 +6,32 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lga2o"]
 radius = 7.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wiihm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Projectile" type="Node2D"]
+position = Vector2(0, 24)
 script = ExtResource("1_y3sk7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(3, 3)
 texture = ExtResource("1_lga2o")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
 
-[node name="EnemyDetectionArea" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
 position = Vector2(-2, 0)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_lga2o")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wiihm")
+
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_area_2d_body_entered"]

@@ -65,6 +65,10 @@ theme_override_constants/separation = 20
 layout_mode = 2
 text = "Play"
 
+[node name="ServerLineEdit" type="LineEdit" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "server name or ip"
+
 [node name="ExitButton" type="Button" parent="CenterContainer/MainUIContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Exit"

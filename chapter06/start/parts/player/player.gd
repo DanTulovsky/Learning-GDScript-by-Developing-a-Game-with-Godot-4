@@ -4,8 +4,13 @@ signal died
 
 @export var projectile_scene: PackedScene = preload("res://parts/projectile/projectile.tscn")
 @export var shoot_distance: float = 400
+@export var enable_shooting: bool = false
 
 @onready var _shoot_timer: Timer = $ShootTimer
+@onready var _camera_position: Node2D = $CameraPosition
+
+
+var multiplayer_id: int
 
 const MAX_HEALTH: int = 10
 const MAX_NUMBER_OF_COINS: int = 10000
@@ -82,7 +87,7 @@ func _on_shoot_timer_timeout() -> void:
 
 	var new_projectile: Projectile = projectile_scene.instantiate()
 	new_projectile.target = closest_enemy
-	get_parent().add_child(new_projectile)
+	get_parent().add_child(new_projectile, true)
 	new_projectile.global_position = global_position
 
 func _physics_process(delta: float) -> void:
@@ -95,7 +100,20 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(multiplayer_id)
+	$HealthMultiplayerSynchronizer.set_multiplayer_authority(1)
+
 func _ready() -> void:
 	update_health_label()
 	update_coins_label()
-	_shoot_timer.start()
+
+	if enable_shooting:
+		_shoot_timer.start()
+
+	if not multiplayer.is_server():
+		_shoot_timer.stop()
+
+	if not is_multiplayer_authority():
+		_camera_position.queue_free()
+		set_physics_process(false)

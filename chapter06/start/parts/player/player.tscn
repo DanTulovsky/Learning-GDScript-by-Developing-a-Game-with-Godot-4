@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnbp4126ry15h"]
+[gd_scene load_steps=6 format=3 uid="uid://cnbp4126ry15h"]
 
 [ext_resource type="Script" uid="uid://br4eguyhfmrua" path="res://parts/player/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://bm4n58n6gea06" path="res://assets/sprites/character/character09.png" id="2_i3pqv"]
@@ -7,6 +7,14 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l4n0l"]
 radius = 26.0
 height = 52.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_l4n0l"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:health")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 3
@@ -47,5 +55,11 @@ editor_draw_drag_margin = true
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="PositionMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_l4n0l")
+
+[node name="HealthMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_l4n0l")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

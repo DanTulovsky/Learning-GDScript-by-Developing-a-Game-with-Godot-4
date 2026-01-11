@@ -11,5 +11,8 @@ script = ExtResource("1_42115")
 
 [node name="SpawnIntervalIncreaseTimer" type="Timer" parent="."]
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="SpawnIntervalIncreaseTimer" to="." method="_on_spawn_increase_timer_timeout"]

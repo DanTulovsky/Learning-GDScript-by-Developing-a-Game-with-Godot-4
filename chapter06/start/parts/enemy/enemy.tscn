@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwd1pkseku31j"]
+[gd_scene load_steps=6 format=3 uid="uid://dwd1pkseku31j"]
 
 [ext_resource type="Texture2D" uid="uid://blhshi548mko6" path="res://assets/sprites/enemies/enemy01.png" id="1_jh6j7"]
 [ext_resource type="Script" uid="uid://btkdxvayftpuj" path="res://parts/enemy/enemy.gd" id="1_klfcx"]
@@ -9,6 +9,11 @@ height = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_klfcx"]
 radius = 31.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_klfcx"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 5
@@ -29,5 +34,8 @@ shape = SubResource("CapsuleShape2D_jh6j7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
 position = Vector2(1, 4)
 shape = SubResource("CircleShape2D_klfcx")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_klfcx")
 
 [connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_entered"]

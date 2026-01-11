@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ck2g1dbq0ftuw"]
+[gd_scene load_steps=12 format=3 uid="uid://ck2g1dbq0ftuw"]
 
 [ext_resource type="Script" uid="uid://cj78pjyai6yov" path="res://screens/game/main.gd" id="1_b52nu"]
 [ext_resource type="PackedScene" uid="uid://dwd1pkseku31j" path="res://parts/enemy/enemy.tscn" id="1_enhf2"]
@@ -19,8 +19,14 @@ source_geometry_mode = 1
 source_geometry_group_name = &"nav_obstacle"
 agent_radius = 40.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b52nu"]
+properties/0/path = NodePath(".:_time")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Main" type="Node"]
 script = ExtResource("1_b52nu")
+player_scene = ExtResource("3_6xclv")
 
 [node name="Arena" type="Node2D" parent="." groups=["nav_obstacle"]]
 
@@ -80,11 +86,6 @@ position = Vector2(447, 495)
 [node name="HealthPotion" parent="Collectibles" instance=ExtResource("2_6xclv")]
 position = Vector2(1182, 600)
 
-[node name="Player" parent="." instance=ExtResource("3_6xclv")]
-position = Vector2(860, 546)
-health = 1
-number_of_coins = 0
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_6xclv")
 
@@ -133,7 +134,30 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "123"
 
-[connection signal="died" from="Player" to="." method="_on_player_died"]
+[node name="PlayerMultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://cnbp4126ry15h")
+spawn_path = NodePath("..")
+
+[node name="ProjectileMultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://btvpoxqjxr162")
+spawn_path = NodePath("..")
+
+[node name="PlayerStartPositions" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="PlayerStartPositions"]
+position = Vector2(1121, 154)
+
+[node name="Marker2D2" type="Marker2D" parent="PlayerStartPositions"]
+position = Vector2(245, 853)
+
+[node name="Marker2D3" type="Marker2D" parent="PlayerStartPositions"]
+position = Vector2(1568, 826)
+
+[node name="Marker2D4" type="Marker2D" parent="PlayerStartPositions"]
+position = Vector2(1632, 293)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_b52nu")
 
 [editable path="EnemySpawner"]
 [editable path="HealthPotionSpawner"]
